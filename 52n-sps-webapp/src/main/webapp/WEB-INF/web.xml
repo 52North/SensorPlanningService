@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<display-name>${project.artifactId} webapp (build: ${timestamp})</display-name>
+
+	<!-- listen for spring related configuration files -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/classes/spring-*-config.xml</param-value>
+	</context-param>
+
+	<!-- define WEB MVC communication servlet for plain old xml -->
+	<servlet>
+		<servlet-name>xml</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/classes/binding-xml.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>xml</servlet-name>
+		<url-pattern>/sps/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- define WEB MVC communication servlet for administration interface -->
+	<servlet>
+		<servlet-name>admin</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/classes/binding-admin.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>admin</servlet-name>
+		<url-pattern>/admin/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- protect your administration interface by using servlet container's user management -->
+	<security-constraint>
+		<display-name>Please authenticate as SPS Administrator!</display-name>
+		<web-resource-collection>
+			<url-pattern>/admin/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>manager</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<login-config>
+		<realm-name>>52°North SPS Administration Interface.</realm-name>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
+	<security-role>
+		<role-name>manager</role-name>
+	</security-role>
+	
+
+	<!-- landing page -->
+	<welcome-file-list>
+		<welcome-file>testClient-SPSv2.html</welcome-file>
+	</welcome-file-list>
+	 
+</web-app>

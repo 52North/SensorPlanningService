@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by Cornelia Müller (52°North GmbH) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:sps="http://www.opengis.net/sps/2.0" xmlns:swe="http://www.opengis.net/swe/2.0" xmlns:swes="http://www.opengis.net/swes/2.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:n52sps="http://www.52north.org/schemas/sps/v2" targetNamespace="http://www.52north.org/schemas/sps/v2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.opengis.net/sps/2.0" schemaLocation="http://schemas.opengis.net/sps/2.0/sps.xsd"/>
+	<xs:import namespace="http://www.opengis.net/swe/2.0" schemaLocation="http://schemas.opengis.net/sweCommon/2.0/swe.xsd"/>
+	<xs:import namespace="http://www.opengis.net/swes/2.0" schemaLocation="http://schemas.opengis.net/swes/2.0/swes.xsd"/>
+	<xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+	<xs:import namespace="http://www.opengis.net/ows/1.1" schemaLocation="http://schemas.opengis.net/ows/1.1.0/owsAll.xsd"/>
+	<xs:element name="InsertSensorOffering">
+		<xs:annotation>
+			<xs:documentation>52North SPS specific format to register new sensor offerings.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="n52sps:SensorOfferingData"/>
+				<xs:element ref="n52sps:SensorInstanceData"/>
+				<xs:element name="SensorDescriptionData" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Optional only if a sensor instance already exists for another SensorOffering</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ProcedureDescriptionFormat" type="xs:anyURI"/>
+							<xs:element name="DownloadLink" type="xs:anyURI"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SensorTaskingParametersSet">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="SingleParameterSet">
+								<xs:annotation>
+									<xs:documentation>Use the AbstractDataComponent's identifier to uniquely identify this set of tasking paramters. The identifier paramter is mandatory!</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="swe:AbstractDataComponent"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="MultipleParameterSets">
+								<xs:annotation>
+									<xs:documentation>Each DataChoice item corresponds to a sensor's task and therefore must describe all parameters which are valid for a tasking request. Such an item serves as logical aggregation group for a set of tasking paramters. The item's name must identify a task uniquely within the data choice.</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="swe:DataChoice"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SensorSetup" type="xs:anyType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Can be used to configure the sensor instance. Defined as XML anyType so implementors are flexible enough to put in arbitrary kind of data.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="RegisterSensorResponse">
+		<xs:annotation>
+			<xs:documentation>52North SPS specific response format.</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="identifier"/>
+				<xs:element name="status"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SensorOfferingData">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OfferingIdentifier" type="xs:anyURI"/>
+				<xs:element name="OfferingDescription" type="xs:string" minOccurs="0"/>
+				<xs:element name="OfferingName" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="ObservableProperty" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>If the SPS is not configured to have SPSContents information to inherit, this element becomes mandatory </xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="RelatedFeature" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="swes:FeatureRelationship"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ObservableArea">
+					<xs:complexType>
+						<xs:choice>
+							<xs:element name="byPoint">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="gml:Point"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="byPolygon">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element ref="gml:Polygon"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SensorInstanceData">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Procedure">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:anyURI">
+								<xs:attribute name="separator" type="xs:string">
+									<xs:annotation>
+										<xs:documentation>Separates parts of the given procedure URI. Use '/' for 'http://my.namespace.org/procedure/1' or ':' for urns like 'urn:ogc:def:procedure:1'. The default is '/'</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SensorPluginType" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>If the SensorOffering shall be added to an existing sensor instance, the plugin type can be omitted. Otherwise, this element is mandatory to create the sensor instance.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="ows:Reference"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SensorTaskingParameters">
+		<xs:complexType>
+			<xs:sequence/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="org.n52.sps.sensor.model">
+	<class name="ResultAccessDataServiceReference" table="data_result_access">
+	
+		<id name="id" column="result_access_id">
+			<generator class="sequence">
+				<param name="sequence">user_id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="reference" column="data_result_reference" type="string" />
+		<property name="role" column="data_result_role" type="string" />
+		<property name="title" type="string" />
+		<property name="identifier" type="string" />
+		<property name="referenceAbstract" column="reference_abstract" type="string" />
+		<property name="format" type="string" />
+		
+		<list name="dataAccessTypes" table="data_access_types" lazy="false">
+			<key  foreign-key="data_access_type_fkey" column="data_access_type_id" not-null="true" />
+            <index column="result_access_id" />
+			<element column="data_access_type" type="string" />
+		</list>
+		
+	</class>
+</hibernate-mapping>

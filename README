@@ -1,0 +1,56 @@
+README file for 52°North Sensor Planning Service (SPS) version 2.0.1
+
+The 52°North SPS is an implementation of the OGC Sensor Planning Service Standard, version 2.0.1.
+It provides a framework for sensor plugins along with the standardized tasking interface of the
+OGC SPS Specification (OGC 09-000).
+
+http://52north.org/sensorweb
+
+
+Contents
+========
+   * /src : The source files of 52°North SPS modules
+   * /bin : Executable binaries of 52°North SPS modules
+   * LICENSE : The license of 52°North SPS
+   * README : This file
+   
+No printer friendly documentation exist for this release. Instead, refer to the wiki documentation
+
+  https://wiki.52north.org/bin/view/SensorWeb/SPS_v20
+
+
+Installation
+============
+
+The 52°North SPS comes as Java Web Archive which can be deployed in a servlet container like Jetty
+or Apache Tomcat. Once deployed you must stop the container (or the web application respectively) 
+to start configuration. The main configuration files are
+
+   * WEB-INF/classes/hibernate.cfg.xml
+   * WEB-INF/classes/logback.xml
+   * WEB-INF/classes/spring-database-config.xml
+ 
+Further configuration files requires advanced knowledge and explanation is beyond the intend of 
+this README. For more information consult the documentation wiki (documentation in progress) at 
+
+  https://wiki.52north.org/bin/view/SensorWeb/52nSPSv200-Documentation
+
+
+Download, Support and Contact
+=============================
+
+The latest release of 52°North SPS can be downloaded from this website:
+
+    http://52north.org/downloads/sensor-web/sps
+
+You can get support in the community mailing list and forums:
+
+    http://52north.org/resources/mailing-list-and-forums/
+
+If you encounter any issues with the software or if you would like to see
+certain functionality added, let us know at:
+
+    h.bredel@52north.org
+
+The Sensor Web Community
+52°North Inititative for Geospatial Open Source Software GmbH, Germany

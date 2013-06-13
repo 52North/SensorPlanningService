@@ -1,0 +1,15 @@
+Changes
+=======
+
+The 52°North SPS version 2.0.1 is a pure bugfix release and do not add any new features.
+
+https://wiki.52north.org/bin/view/SensorWeb/52nSPSv200-Documentation
+
+
+Fixed Bugs
+----------
+
+   * #749 - Cannot register sensor
+   * #864 - Not more than one instance of the same sensor type cannot be added via admin interface
+   * #865 - Adding several SensorOfferings containing the same gml:id results in invalid GetCapabilities
+   * #889 - Align webapp-context (name) relevant parameters with single parameter

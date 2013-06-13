@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>SOSTestClient - version 2.2</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<link rel=stylesheet href="style.css" type="text/css" media=screen />
+<link rel=stylesheet href="codemirror/default.css" type="text/css"
+	media=screen />
+<link rel=stylesheet href="codemirror/codemirror.css" type="text/css"
+	media=screen />
+<script src="codemirror/codemirror-compressed.js" type="text/javascript"></script>
+<script src="codemirror/xml.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.7.2.min.js"
+	type="text/javascript"></script>
+
+<script language="JavaScript" type="text/javascript">
+
+	var datafolder_sps2 = window.location.href.substring(0,
+		     window.location.href.lastIndexOf("/") + 1) +
+		     "examples/";
+	
+	var editor = null;
+	var defaultString = "<!-- Insert your request here or select one of the examples from the menu above. -->";
+	
+	function load()
+	{
+		if(editor == null) {
+			initEditor();
+		}
+		
+		var placeholderIndex = "PLACEHOLDER";
+		//load files
+		var requests=new Array();
+		var index = 0;
+		
+		//load files for SPS 2.0 requests
+		requests[index++]=datafolder_sps2+"GetCapabilities.xml";
+		requests[index++]=datafolder_sps2+"CITE-DescribeSensor.xml";
+		requests[index++]=datafolder_sps2+"CITE-DescribeTasking.xml";
+		requests[index++]=datafolder_sps2+"CITE-DescribeResultAccess-Procedure.xml";
+		requests[index++]=datafolder_sps2+"CITE-Submit.xml";
+		requests[index++]=datafolder_sps2+"CITE-GetStatus.xml";
+		requests[index++]=datafolder_sps2+"CITE-DescribeResultAccess-Task.xml";
+		
+		//fill the select element
+		var selRequest = document.getElementById("selRequest");
+		
+		l = requests.length;
+		for (var i=0; i<l; i++ ){
+			var requestString = "";
+			if(requests[i] == placeholderIndex) {
+				//skip this one
+			}
+			else {
+				try {
+					
+					var name = requests[i].substring(requests[i].lastIndexOf("/") + 1, requests[i].length);
+					selRequest.add(new Option(name, requests[i]), null);
+				} catch(err) {
+					var txt="";
+					txt+="Error loading file: " + requests[i];
+					txt+="Error: " + err + "\n\n";
+					var requestTextarea = document.getElementById('requestTextarea').value = "";
+					requestTextarea.value+=txt;
+				}
+			}
+		}
+	}
+		
+	function insertSelected() {
+		try {
+			var selObj = document.getElementById('selRequest');
+			var requestTextarea = document.getElementById('requestTextarea');
+			var requestString = "";
+
+			if(selObj.selectedIndex != 0) // Handle selection of empty drop down entry.
+				requestString = getFile(selObj.options[selObj.selectedIndex].value);
+			
+      		if(requestString == null){
+      			requestString = "Sorry! There is a problem, please refresh the page.";
+      		}
+
+		  	editor.setValue(requestString);
+		  	
+			} catch(err) {
+				var txt="";
+				txt+="Error loading file: " + selObj.options[selObj.selectedIndex].value;
+				txt+="Error: " + err + "\n\n";
+				requestTextarea.value+=txt;
+			}
+  
+	}
+  
+  	function getFile(fileName){
+     	oxmlhttp = null;
+     	try{
+       		oxmlhttp = new XMLHttpRequest();
+       		oxmlhttp.overrideMimeType("text/xml");
+     	}
+     	catch(e){
+       		try{
+         		oxmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+       		}
+       		catch(e){
+         		return null;
+       		}
+     	}
+     	if(!oxmlhttp) return null;
+     	try{
+       		oxmlhttp.open("GET",fileName,false);
+       		oxmlhttp.send(null);
+     	}
+     	catch(e){
+       		return null;
+     	}
+     	return oxmlhttp.responseText;
+  	}
+
+	function initEditor() {
+		editor = CodeMirror.fromTextArea(
+			document.getElementById("requestTextarea"), 
+			{
+			height: "420px",
+			//parserfile: "parsexml.js",
+			//stylesheet: "codemirror/xmlcolors.css",
+			//path: "codemirror/",
+			//lineNumbers: true,
+			mode: {name: "xml"},
+			readOnly: false,
+			lineWrapping: true,
+			lineNumbers: true,
+		});
+		editor.setValue(defaultString);
+	}
+
+	$(document).ready(function() {
+		load();
+		$("#requestform").submit(function() {
+		    $.ajax({
+		        url: $("#serviceurl").attr('value'), // "http://localhost:8080/sps-2.0/sps", //
+		        type: "POST",
+		        dataType: "xml",
+		        contentType: "text/xml",
+		        encoding:"UTF-8",
+		        data: editor.getValue(), // getFile($("#selRequest").val()),
+		        complete: function(xhr, status) {
+		        	//$("#responseStatus").text("Status: " + status);
+		        	//$("#responseTextarea").val(xhr.responseText);
+		        	if (xhr.status != 200) {
+			        	$("#error").show();
+			        	$("#responseTextarea").hide();
+			        	$("#responseStatus").text("ERROR (Status: " + status + ")");
+			        	$("#error").html(xhr.responseText);
+		        	} else {
+			        	$("#error").hide();
+			        	$("#responseTextarea").show();
+			        	$("#responseStatus").text("Status: " + status);
+			        	$("#responseTextarea").text(xhr.responseText);
+		        	}
+		        }
+		    });
+			return false;
+		});
+	});
+</script>
+
+</head>
+<body bgcolor="#ffffff" text="#000000">
+
+	<div id="content">
+		<div id="header">
+			<div id="headline">
+				<span class="title">SPS 2.0 TestClient (Plain XML)</span><span
+					class="infotext">Version 2</span>
+				<div class="infotext">
+					<br />
+					<br />For more information about the 52°North Sensor Planning
+					Service visit <a href="http://52north.org/sps">http://52north.org/sps</a>.
+				</div>
+			</div>
+			<div id="logo">
+				<a href="http://www.52north.org/" target="_blank"><img
+					src="http://52north.org/templates/52n/images/logo.gif" border="0"
+					alt="52North Logo" /></a>
+			</div>
+		</div>
+
+		<form name="urlform" method="post" action="" enctype="text/xml">
+			<h3>
+				Service URL:&nbsp;&nbsp; <span> <input name="url" id="serviceurl"
+					value="${sps.external.dcp.operation.url}" size="80" type="text" /></span>
+			</h3>
+		</form>
+
+		<h3>
+			Request Examples:&nbsp;&nbsp; <select id="selRequest"
+				onchange="insertSelected();">
+				<option value=" "></option>
+			</select>
+		</h3>
+
+		<span class="infotext">You can change the examples in the
+			folder <font face="monospace">[project-directory]/52n-sps-webapp/src/main/webapp/examples/</font>.
+		</span>
+
+		<div class="request-form">
+			<form id="requestform" name="requestform" method="post" action="">
+				<div class="editorBorder">
+					<textarea name="request" id="requestTextarea"></textarea>
+				</div>
+				<div class="request-form-buttons">
+					<input value="Send" type="submit" />
+					<!-- <input value="Send" onclick="requestform.action = urlform.url.value" type="submit" /> -->
+					<input value="Clear" name="reset" type="reset"
+						onclick="document.getElementById('selRequest').selectedIndex = 0; insertSelected();" />
+				</div>
+			</form>
+		</div>
+		
+		<hr/>
+		
+		<div>
+			<div id="responseStatus">
+				<h3>Response:</h3>
+			</div>
+			<div title="Status" id="reponseStatus"></div>
+			<div title="Response" id="response"><textarea id="responseTextarea" readonly="readonly"></textarea></div>
+			<div title="Error" id="error"></div>
+		</div>
+		
+		<hr />
+		<div>
+			<p class="infotext">This TestClient was successfully tested in
+			Firefox 3.5.2, Safari 4.0.3, Opera 9.64 and InternetExplorer
+			8.0.6001.18702 and should work properly in Firefox 1.0 or higher,
+			Safari 1.2 or higher, Opera 8 or higher and InternetExplorer 5 or
+			higher. The editor is based on CodeMirror
+			(http://marijn.haverbeke.nl/codemirror/).</p>
+		</div>
+		
+	</div>
+	
+</body>
+</html>

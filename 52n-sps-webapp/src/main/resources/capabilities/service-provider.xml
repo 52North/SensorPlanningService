@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ows:ServiceProvider xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/ows/1.1 http://schemas.opengis.net/ows/1.1.0/owsServiceProvider.xsd">
+	<ows:ProviderName>52°North Initiative for Geospatial Open Source Software GmbH</ows:ProviderName>
+	<ows:ProviderSite xlink:href="http://52north.org"/>
+	<ows:ServiceContact>
+		<ows:IndividualName>Henning Bredel</ows:IndividualName>
+		<ows:PositionName>Software Developer</ows:PositionName>
+		<ows:ContactInfo>
+			<ows:Phone>
+				<ows:Voice>+49251...</ows:Voice>
+				<ows:Facsimile>+49251...</ows:Facsimile>
+			</ows:Phone>
+			<ows:Address>
+				<ows:DeliveryPoint>Martin-Luther-King Weg 24</ows:DeliveryPoint>
+				<ows:City>Münster</ows:City>
+				<ows:AdministrativeArea>North-Rhine Westphalia</ows:AdministrativeArea>
+				<ows:PostalCode>48151</ows:PostalCode>
+				<ows:Country>
+					Germany
+				</ows:Country>
+				<ows:ElectronicMailAddress>info@52north.org</ows:ElectronicMailAddress>
+				<ows:ElectronicMailAddress>swe@52north.org</ows:ElectronicMailAddress>
+			</ows:Address>
+			<ows:OnlineResource xlink:href="http://52north.org" xlink:title="website"/>
+			<ows:ContactInstructions>Subscribe to Sensor Web mailinglist: http://list.52north.org/mailman/listinfo/swe</ows:ContactInstructions>
+		</ows:ContactInfo>
+		<ows:Role>Reference Implementor</ows:Role>
+	</ows:ServiceContact>
+</ows:ServiceProvider>

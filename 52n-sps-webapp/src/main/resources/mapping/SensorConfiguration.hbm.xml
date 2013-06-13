@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="org.n52.sps.sensor.model">
+	<class name="SensorConfiguration" table="sensor_configuration">
+	
+		<id name="id" column="sensor_configuration_id">
+			<generator class="sequence">
+				<param name="sequence">user_id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="procedure" column="procedure_id" type="string" unique="true" not-null="true"/>
+		<property name="sensorPluginType" column="sensor_plugin_type" type="string" />
+		<property name="taskingParameters" column="tasking_parameters" type="text" />
+		<property name="sensorSetupAsString" column="sensor_setup" type="text" />
+		
+		<many-to-one foreign-key="result_access_fkey" name="resultAccessDataService" 
+			column="data_result_access" cascade="all" lazy="false" unique="true" 
+			class="org.n52.sps.sensor.model.ResultAccessDataServiceReference" />
+			
+		<list name="sensorDescriptions" lazy="false" cascade="all">
+			<key foreign-key="procedure_fkey" column="procedure_id" property-ref="procedure" />
+            <index column="sensor_description_index" />
+			<one-to-many entity-name="org.n52.sps.sensor.model.SensorDescription" />
+		</list>
+		 
+		<list name="sensorOfferingsAsString" table="sensor_offerings" lazy="false" cascade="all">
+			<key foreign-key="sensor_offering_fkey" column="sensor_offering_id" property-ref="procedure" />
+            <index column="sensor_description_id" />
+			<element column="sensor_offering" type="text" />
+		</list>
+		
+	</class>
+</hibernate-mapping>

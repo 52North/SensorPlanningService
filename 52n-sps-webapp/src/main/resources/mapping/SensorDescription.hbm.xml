@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="org.n52.sps.sensor.model">
+	<class name="SensorDescription" table="sensor_description">
+	
+		<id name="id" column="sensor_description_id">
+			<generator class="sequence">
+				<param name="sequence">user_id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="downloadLink" column="download_link" type="string" />
+		<property name="procedureDescriptionFormat" column="procedure_description_format" type="string" />
+		
+	</class>
+</hibernate-mapping>

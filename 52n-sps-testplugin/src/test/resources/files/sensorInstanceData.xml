@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<n52sps:SensorInstanceData xlink:href="http://188.111.111.60/52nSOSv4.0.0/soap"
+    xmlns:n52sps="http://www.52north.org/schemas/sps/v2"
+	xmlns:sps="http://www.opengis.net/sps/2.0" xmlns:ows="http://www.opengis.net/ows/1.1"
+	xlink:role="http://www.opengis.net/spec/SPS/2.0/referenceType/FullServiceAccess"
+	xlink:title="Sensor Observation Service" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<n52sps:Procedure>http://www.52north.org/sensor/cite/1</n52sps:Procedure>
+	<n52sps:SensorPluginType>CiteTestSensor</n52sps:SensorPluginType>
+	<ows:Reference>
+		<ows:Identifier />
+		<ows:Abstract xml:lang="en">Data service endpoint for OWS-9 SPS CITE testing.</ows:Abstract>
+		<ows:Format>application/xml</ows:Format>
+		<ows:Metadata>
+			<sps:SPSMetadata>
+				<sps:dataAccessType>http://schemas.opengis.net/sos/2.0/sos.xsd</sps:dataAccessType>
+			</sps:SPSMetadata>
+		</ows:Metadata>
+	</ows:Reference>
+</n52sps:SensorInstanceData>

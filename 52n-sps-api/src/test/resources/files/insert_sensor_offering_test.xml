@@ -1,0 +1,132 @@
+<n52sps:InsertSensorOffering xmlns:sps="http://www.opengis.net/sps/2.0"
+	xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:swe="http://www.opengis.net/swe/2.0"
+	xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:swes="http://www.opengis.net/swes/2.0"
+	xmlns:n52sps="http://www.52north.org/schemas/sps/v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.52north.org/schemas/sps/v2 http://www.52north.org/schemas/sps/v2/insert-sensor-offering.xsd">
+	<n52sps:SensorOfferingData>
+		<n52sps:OfferingIdentifier>http://www.ogc.org/sps/offering1
+		</n52sps:OfferingIdentifier>
+		<n52sps:OfferingDescription>A simple simulation sensor used for OGC
+			CITE testing in OWS-9</n52sps:OfferingDescription>
+		<n52sps:ObservableArea>
+			<n52sps:byPolygon>
+				<gml:Polygon gml:id="gid01">
+					<gml:exterior>
+						<gml:LinearRing>
+							<gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">51.9 8.186</gml:pos>
+							<gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">51.9005 8.186</gml:pos>
+							<gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">51.9005 8.199</gml:pos>
+							<gml:pos srsName="http://www.opengis.net/def/crs/EPSG/0/4326">51.9 8.199</gml:pos>
+						</gml:LinearRing>
+					</gml:exterior>
+				</gml:Polygon>
+			</n52sps:byPolygon>
+		</n52sps:ObservableArea>
+	</n52sps:SensorOfferingData>
+	<n52sps:SensorInstanceData>
+		<n52sps:Procedure>http://www.52north.org/sensor/cite/1
+		</n52sps:Procedure>
+		<n52sps:SensorPluginType>CiteTestSensor</n52sps:SensorPluginType>
+		<ows:Reference xlink:href="http://188.111.111.60/52nSOSv4.0.0/soap"
+			xlink:role="http://www.opengis.net/spec/SPS/2.0/referenceType/ServiceURL"
+			xlink:title="Sensor Observation Service" xmlns:xlink="http://www.w3.org/1999/xlink">
+			<ows:Identifier></ows:Identifier>
+			<ows:Abstract xml:lang="en">Data service endpoint for OWS-9
+				SPS CITE testing.</ows:Abstract>
+			<ows:Format>application/xml</ows:Format>
+			<ows:Metadata>
+				<sps:SPSMetadata>
+					<sps:dataAccessType>http://schemas.opengis.net/sos/2.0/sos.xsd
+					</sps:dataAccessType>
+				</sps:SPSMetadata>
+			</ows:Metadata>
+		</ows:Reference>
+	</n52sps:SensorInstanceData>
+	<n52sps:SensorDescriptionData>
+		<n52sps:ProcedureDescriptionFormat>http://www.opengis.net/sensorML/1.0.1
+		</n52sps:ProcedureDescriptionFormat>
+		<n52sps:DownloadLink>http://localhost:8080/sps-2.0/sml/CiteTestSensor/1.xml
+		</n52sps:DownloadLink>
+	</n52sps:SensorDescriptionData>
+	<n52sps:SensorTaskingParametersSet>
+		<n52sps:SingleParameterSet>
+			<swe:DataRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:swe="http://www.opengis.net/swe/2.0"
+				xsi:schemaLocation="http://www.opengis.net/swe/2.0 http://schemas.opengis.net/sweCommon/2.0/swe.xsd">
+				<swe:identifier>tasking</swe:identifier>
+				<swe:field name="measurementFrequency">
+					<swe:Quantity optional="true">
+						<swe:uom code="Hz" xlink:href="urn:x-ogc:def:uom:OGC:Hz" />
+					</swe:Quantity>
+				</swe:field>
+				<swe:field name="measurementLocation">
+					<swe:Vector referenceFrame="urn:ogc:def:crs:EPSG:6.14:4326"
+						definition="urn:ogc:def:phenomenon:measurement_location">
+						<swe:coordinate name="lat">
+							<swe:Quantity
+								definition="http://sweet.jpl.nasa.gov/2.0/spaceCoordinates.owl#Latitude"
+								axisID="Lat">
+								<swe:label>Geodetic latitude</swe:label>
+								<swe:uom xlink:href="deg" />
+								<swe:constraint>
+									<swe:AllowedValues>
+										<swe:interval>51.9 51.9005</swe:interval>
+									</swe:AllowedValues>
+								</swe:constraint>
+							</swe:Quantity>
+						</swe:coordinate>
+						<swe:coordinate name="long">
+							<swe:Quantity
+								definition="http://sweet.jpl.nasa.gov/2.0/spaceCoordinates.owl#Longitude"
+								axisID="Long">
+								<swe:label>Geodetic longitude</swe:label>
+								<swe:uom code="deg" />
+								<swe:constraint>
+									<swe:AllowedValues>
+										<swe:interval>8.186 8.199</swe:interval>
+									</swe:AllowedValues>
+								</swe:constraint>
+							</swe:Quantity>
+						</swe:coordinate>
+					</swe:Vector>
+				</swe:field>
+				<swe:field name="measurementCount">
+					<swe:Count optional="true">
+						<swe:constraint>
+							<swe:AllowedValues>
+								<swe:interval>0 10</swe:interval>
+							</swe:AllowedValues>
+						</swe:constraint>
+					</swe:Count>
+				</swe:field>
+				<swe:field name="measurementPurpose">
+					<swe:Text optional="true" />
+				</swe:field>
+				<swe:field name="measurementPriority">
+					<swe:Category>
+						<swe:constraint>
+							<swe:AllowedTokens>
+								<swe:value>low</swe:value>
+								<swe:value>medium</swe:value>
+								<swe:value>high</swe:value>
+							</swe:AllowedTokens>
+						</swe:constraint>
+					</swe:Category>
+				</swe:field>
+				<swe:field name="shallMeasure">
+					<swe:Boolean />
+				</swe:field>
+				<swe:field name="maxMissionDuration">
+					<swe:Time optional="true">
+						<swe:uom xlink:href="http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" />
+						<swe:constraint>
+							<swe:AllowedTimes>
+								<swe:interval>2012-05-01 2013-05-01</swe:interval>
+							</swe:AllowedTimes>
+						</swe:constraint>
+					</swe:Time>
+				</swe:field>
+			</swe:DataRecord>
+		</n52sps:SingleParameterSet>
+	</n52sps:SensorTaskingParametersSet>
+</n52sps:InsertSensorOffering>

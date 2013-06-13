@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/web-services
+           http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+           http://www.springframework.org/schema/oxm 
+           http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd">
+
+	<!--############################################################
+		Place all available SPS operators. Provider will be injected 
+	    ############################################################-->
+	<bean id="service" class="org.n52.sps.service.AutoWiredSPSComponentProvider" destroy-method="shutdown">
+		<constructor-arg name="basicSensorPlanner" ref="coreOperator" />
+		<constructor-arg name="sensorProvider" ref="sensorProviderOperator" />
+		<property name="spsAdmin" ref="adminOperator" />
+	</bean>
+	
+	<!--##########################################################
+		Implementation components (operators) of the SPS interface 
+	    ##########################################################-->
+	    
+	<bean id="abstractOperator" abstract="true" class="org.n52.sps.service.SpsOperator">
+		<property name="sensorInstanceProvider" ref="sensorInstanceProvider"/>
+	</bean>
+	
+	<bean id="coreOperator" parent="abstractOperator" class="org.n52.sps.service.core.BasicSensorPlannerOperator" />
+	<bean id="sensorProviderOperator" parent="abstractOperator" class="org.n52.sps.service.core.SensorProviderOperator"/>
+	
+	<bean id="adminOperator" class="org.n52.sps.service.admin.AdminOperator">
+		<property name="interceptCapabilities" value="false" />
+		<property name="insertSensorOfferingListeners">
+			<list value-type="org.n52.sps.service.admin.InsertSensorOfferingListener">
+				<ref bean="sensorInstanceProvider"/>
+			</list>
+		</property>
+		<property name="deleteSensorOfferingListeners">
+			<list value-type="org.n52.sps.service.admin.DeleteSensorOfferingListener">
+				
+			</list>
+		</property>
+	</bean>
+	
+	<!--############################################################
+		SensorInstanceProvider Configuration.
+	    ############################################################-->
+	<bean id="sensorInstanceProvider" class="org.n52.sps.service.core.SensorInstanceProvider" init-method="init">
+		<property name="sensorConfigurationRepository" ref="sensorConfigurationDatabaseService" />
+		<property name="sensorTaskRepository" ref="sensorTaskDatabaseService" />
+	</bean>
+	<!-- These beans provide an in memory storage of sensors and tasks (useful for a light setup)
+	<bean id="sensorConfigurationInMemoryService" class="org.n52.sps.util.nodb.InMemorySensorConfigurationRepository" />
+	<bean id="sensorTaskInMemoryService" class="org.n52.sps.util.nodb.InMemorySensorTaskRepository" />
+	 -->
+	
+</beans>

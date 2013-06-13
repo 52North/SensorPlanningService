@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/jee 
+    	   http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		   http://www.springframework.org/schema/aop 
+		   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<bean id="sensorConfigurationDao" class="org.n52.sps.db.access.HibernateSensorConfigurationDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="sensorTaskDao" class="org.n52.sps.db.access.HibernateSensorTaskDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="sensorConfigurationDatabaseService" class="org.n52.sps.db.SensorConfigurationStorageService">
+		<property name="sensorConfigurationDao" ref="sensorConfigurationDao" />
+		<property name="sensorTaskDao" ref="sensorTaskDao" />
+	</bean>
+
+	<bean id="sensorTaskDatabaseService" class="org.n52.sps.db.SensorTaskStorageService">
+		<property name="sensorTaskDao" ref="sensorTaskDao" />
+	</bean>
+	
+	<!-- ############################## JDBC MANAGED DATASOURCE ####################################### -->
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/sps" />
+		<property name="driverClass" value="org.postgresql.Driver" />
+		<property name="user" value="${org.n52.database.username}" />
+		<property name="password" value="${org.n52.database.password}" />
+	</bean>
+
+	<bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>mapping/ResultAccessDataServiceReference.hbm.xml</value>
+				<value>mapping/SensorConfiguration.hbm.xml</value>
+				<value>mapping/SensorDescription.hbm.xml</value>
+				<value>mapping/SensorTask.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- ############################## JTA JAVA EE MANAGED DATASOURCE ################################## -->
+
+	<!-- 
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/jpetstore"/>
+	<bean id="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
+	-->
+
+	<!-- #################################### AOP CONFIGURATION ######################################### -->
+
+	<!-- the transactional advice (what 'happens'; see the <aop:advisor/> bean below) -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="findBy*" read-only="true" />
+			<tx:method name="contains*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- ensure that the above transactional advices run for any execution of an operation defined by the DAO interfaces -->
+	<aop:config>
+		<aop:pointcut id="configurationDaoOperation" expression="execution(* org.n52.sps.db.access.HibernateSensorConfigurationDao.*(..))" />
+		<aop:pointcut id="taskDaoOperation" expression="execution(* org.n52.sps.db.access.HibernateSensorTaskDao.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="configurationDaoOperation" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="taskDaoOperation" />
+	</aop:config>
+
+	<!-- ############################################################################################### -->
+
+</beans>
