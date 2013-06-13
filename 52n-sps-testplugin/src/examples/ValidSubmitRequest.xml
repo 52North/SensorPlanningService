@@ -1,0 +1,11 @@
+<sps:Submit service="SPS" version="2.0.0" xmlns:sps="http://www.opengis.net/sps/2.0" xmlns:swe="http://www.opengis.net/swe/2.0">
+	<sps:procedure>http://www.52north.org/sensor/cite/1</sps:procedure>
+	<sps:taskingParameters>
+		<sps:ParameterData>
+			<sps:encoding>
+				<swe:TextEncoding tokenSeparator="," blockSeparator="@@"/>
+			</sps:encoding>
+			<sps:values>Y,10.5,51.9,7.31,N,Y,Just for testing purposes,normal,true,N</sps:values>
+		</sps:ParameterData>
+	</sps:taskingParameters>
+</sps:Submit>

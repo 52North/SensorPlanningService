@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/oxm 
+           http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd 
+		   http://www.springframework.org/schema/util
+		   http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+
+    <bean id="xmlview" class="org.springframework.web.servlet.view.xml.MarshallingView">
+            <property name="contentType" value="text/xml"/>
+            <property name="marshaller" ref="xmlbeansMarshaller"/>
+    </bean>
+    
+	<bean id="xmlbeansMarshaller" class="org.springframework.oxm.xmlbeans.XmlBeansMarshaller" />
+	
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<util:list>
+				<ref bean="marshallingHttpMessageConverter" />
+			</util:list>
+		</property>
+	</bean>
+
+	<bean id="marshallingHttpMessageConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+		<property name="marshaller" ref="xmlbeansMarshaller" />
+		<property name="unmarshaller" ref="xmlbeansMarshaller" />
+	</bean>
+	
+</beans>

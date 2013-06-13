@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<sps:DescribeResultAccess service="SPS" version="2.0.0"
+	xmlns:sps="http://www.opengis.net/sps/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<sps:target>
+		<sps:task>http://www.52north.org/sensor/cite/1/task/{UUID}</sps:task>
+	</sps:target>
+</sps:DescribeResultAccess>

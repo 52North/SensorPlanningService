@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sps:Submit version="2.0.0" service="SPS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sps="http://www.opengis.net/sps/2.0" xsi:schemaLocation="http://www.opengis.net/sps/2.0 http://schemas.opengis.net/sps/2.0/sps.xsd">
+<sps:procedure>http://52north.org/services/sps/procedure/CiteSensor/instance1</sps:procedure>
+<sps:taskingParameters>
+	<sps:ParameterData xmlns:swe="http://www.opengis.net/swe/2.0">
+		<sps:encoding>
+			<swe:TextEncoding tokenSeparator="," blockSeparator="@@"></swe:TextEncoding>
+		</sps:encoding>
+		<!-- 
+		[measurementFrequency(double)],
+		measurementLocation(lat,lon),
+		[measurementCount(0,10)],
+		[measurementPurpose(String)],
+		measurementPriority(low,normal,high),
+		shallMeasure,
+		[maxMissionDuration(1990-01-01 2009-01-01)] -->
+		<sps:values>Y,10.5,51.9,7.31,N,Y,Just for testing purposes,normal,true,N</sps:values>
+	</sps:ParameterData>
+</sps:taskingParameters>
+</sps:Submit>

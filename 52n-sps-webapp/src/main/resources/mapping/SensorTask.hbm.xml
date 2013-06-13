@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping package="org.n52.sps.sensor.model">
+
+	<class name="SensorTask" table="sensor_task">
+		<id name="id" type="long" column="sensor_task_id">
+			<generator class="sequence">
+				<param name="sequence">user_id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="event" column="event" type="string" />
+		<property name="taskId" column="task_id" type="string" />
+		<property name="procedure" column="procedure_id" type="string" />
+		<property name="updateTime" column="update_time" type="calendar" />
+		<property name="taskStatusAsString" column="task_status" type="string" />
+		<property name="estimatedToC" column="time_to_complete" type="calendar" />
+		<property name="parameterDataAsString" column="parameter_data" type="text" />
+		<property name="requestStatusAsString" column="request_status" type="string" />
+		<property name="percentCompletion" column="percent_of_completion" type="double" />
+		
+		<list name="statusMessages" table="status_messages" lazy="false" cascade="all">
+			<key foreign-key="status_message_fkey" column="status_message_id" />
+            <index column="sensor_task_id" />
+			<element column="status_message" type="string" />
+		</list>
+		
+	</class>
+</hibernate-mapping>
