@@ -340,27 +340,32 @@
 						</execution>
 					</executions>
 				</plugin>
-				<plugin>
-					<groupId>com.google.code.maven-svn-revision-number-plugin</groupId>
-					<artifactId>svn-revision-number-maven-plugin</artifactId>
-					<version>1.12</version> <!-- please use the latest version -->
-					<executions>
-						<execution>
-							<phase>package</phase>
-							<goals>
-								<goal>revision</goal>
-							</goals>
-						</execution>
-					</executions>
-					<configuration>
-						<entries>
-							<entry>
-								<prefix>svn.info</prefix>
-							</entry>
-						</entries>
-					</configuration>
-				</plugin>
-
+				
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>1.5</version>
+                    <configuration>
+                        <useMissingFile>true</useMissingFile>
+                        <licensesConfigFile>${project.basedir}/src/license/licenses.xml</licensesConfigFile>
+                        <excludedGroups>
+                            org.n52.sensorweb
+                        </excludedGroups>
+                        <excludedScopes>
+                            provided
+                        </excludedScopes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>download-licenses</id>
+                            <goals>
+                                <goal>download-licenses</goal>
+                                <goal>aggregate-add-third-party</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+				
 				<plugin>
 					<artifactId>maven-release-plugin</artifactId>
 					<configuration>
@@ -396,7 +401,7 @@
 			<name>52n Snapshots</name>
 			<url>http://52north.org/maven/repo/snapshots/</url>
 		</repository>
-		<repository>
+		<!-- <repository>
 			<id>jboss</id>
 			<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
 			<releases>
@@ -405,7 +410,7 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-		</repository>
+		</repository> -->
 	</repositories>
 
 	<pluginRepositories>
