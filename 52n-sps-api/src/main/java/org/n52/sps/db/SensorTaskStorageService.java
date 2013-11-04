@@ -62,7 +62,7 @@ public class SensorTaskStorageService implements SensorTaskRepository {
 
     public Iterable<String> getSensorTaskIds(String procedure) {
         List<String> taskIds = new ArrayList<String>();
-        for (SensorTask sensorTask : sensorTaskDao.findByTaskId(procedure)) {
+        for (SensorTask sensorTask : sensorTaskDao.findByProcedure(procedure)) {
             taskIds.add(sensorTask.getTaskId());
         }
         return taskIds;

@@ -55,5 +55,13 @@
 	<bean id="sensorConfigurationInMemoryService" class="org.n52.sps.util.nodb.InMemorySensorConfigurationRepository" />
 	<bean id="sensorTaskInMemoryService" class="org.n52.sps.util.nodb.InMemorySensorTaskRepository" />
 	 -->
+	 <!--############################################################
+		Place Rest Component Beans 
+	    ############################################################-->
+	<bean class="org.n52.sps.control.rest.TasksRestComponent"/>
+	<bean id="taskService" class="org.n52.sps.service.rest.TaskServiceImpl">
+	   <property name="sensorTaskRepository" ref="sensorTaskDatabaseService"/>
+	</bean>
+
 	
 </beans>
