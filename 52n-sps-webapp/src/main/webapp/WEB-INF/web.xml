@@ -64,6 +64,21 @@
 		<role-name>manager</role-name>
 	</security-role>
 	
+	<!--  define Jersey servlet for REST Interface -->
+	 <servlet>
+        <servlet-name>SpringApplication</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>org.n52.sps.control.rest.SpsJerseyApplication</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SpringApplication</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+	
 
 	<!-- landing page -->
 	<welcome-file-list>

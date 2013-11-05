@@ -30,6 +30,8 @@ public interface SensorTaskDao extends GenericDao<SensorTask, String>{
     public SensorTask findBy(String procedure, String taskId);
     
     public Iterable<SensorTask> findByTaskId(String taskId);
+    
+    public Iterable<SensorTask> findByProcedure(String procedure);
 
     public long getCount(String procedure);
 }

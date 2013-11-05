@@ -30,6 +30,7 @@
 		<module>52n-sps-api-xml</module>
 		<module>52n-sps-hibernate</module>
 		<module>52n-sps-testplugin</module>
+                <module>52n-sps-rest</module>
 	</modules>
 	<scm>
 		<connection>scm:svn:https://svn.52north.org/svn/swe/main/SPS/Services/trunk</connection>

@@ -79,6 +79,13 @@ public class HibernateSensorTaskDao extends HibernateDaoSupport implements Senso
         throw new UnsupportedOperationException();
 
     }
+    
+    public Iterable<SensorTask> findByProcedure(String procedure){
+   	 LOGGER.debug("findByTaskProcedure({})", procedure);
+   	  Query query = getCurrentSession().createQuery("from SensorTask as st where st.procedure = :procedure");
+         query.setParameter("procedure", procedure);
+         return query.list();
+   }
 
     public long getCount(String procedure) {
         LOGGER.debug("getCount({})", procedure);
