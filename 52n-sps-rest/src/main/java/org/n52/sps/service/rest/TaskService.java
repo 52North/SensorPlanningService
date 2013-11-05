@@ -1,12 +1,12 @@
 /**
- * Copyright (C) 2012
- * by 52 North Initiative for Geospatial Open Source Software GmbH
+ * Copyright (C) 2013
+ * by Instituto Tecnológico de Galicia
  *
- * Contact: Andreas Wytzisk
- * 52 North Initiative for Geospatial Open Source Software GmbH
- * Martin-Luther-King-Weg 24
- * 48155 Muenster, Germany
- * info@52north.org
+ * Contact: Carlos Giraldo
+ * 52 Instituto Tecnológico de Galicia
+ * PO.CO.MA.CO. Sector i, Portal 5 15190, A Coruña
+ * A Coruña, Spain
+ * cgiraldo@5itg.es
  *
  * This program is free software; you can redistribute and/or modify it under
  * the terms of the GNU General Public License version 2 as published by the
