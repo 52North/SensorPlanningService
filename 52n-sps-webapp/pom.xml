@@ -54,11 +54,6 @@
 			<artifactId>jersey-container-servlet</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.n52.sensorweb</groupId>
-			<artifactId>52n-sps-rest</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<!-- ### MODULE DEPENDENCIES ### -->
 		<dependency>
 			<groupId>org.n52.sensorweb</groupId>
@@ -74,6 +69,10 @@
 			<groupId>org.n52.sensorweb</groupId>
 			<artifactId>52n-sps-admin</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.n52.sensorweb</groupId>
+            <artifactId>52n-sps-rest</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.n52.sensorweb</groupId>
 			<artifactId>52n-sps-hibernate</artifactId>
