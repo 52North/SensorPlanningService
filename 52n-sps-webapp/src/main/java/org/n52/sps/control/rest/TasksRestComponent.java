@@ -21,48 +21,44 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA or
  * visit the Free Software Foundation web page, http://www.fsf.org.
  */
+
 package org.n52.sps.control.rest;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
 
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Path;
-import javax.ws.rs.GET;
-
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
-
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
-import org.springframework.stereotype.Component;
-import org.springframework.beans.factory.annotation.Autowired;
-// Rest Services
 import org.n52.sps.service.rest.TaskService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
-@Component
-@Path("/tasks")
-@Consumes("application/json")
-@Produces("application/json")
-public class TasksRestComponent{
+@Controller
+@RequestMapping("/tasks")
+public class TasksRestComponent {
 
-	@Autowired    
-	protected TaskService taskService;
+    private TaskService taskService;
+    
+    /*
+     *  TODO currently every user is able to get information about a procedure's
+     *  tasks which is NOT always a good thing. Knowing the procedure might be 
+     *  security by obscurity for now, but should be reconsidered later to fix
+     *  this possible security issue.
+     */
+    @RequestMapping(method = GET, produces = {"application/json"})
+    public ModelAndView getTasks(@RequestParam("procedureId") String procedureId) {
+        List<String> tasks = taskService.getTaskIds(procedureId);
+        return new ModelAndView().addObject(tasks);
+    }
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(TasksRestComponent.class);
-	
-	@GET
-	@Path("/procedure/{procedureId}")
-	public Response getTasks(@PathParam("procedureId") String procedureId, @Context UriInfo uriInfo) {
-		List<String> tasks = taskService.getTaskIds(procedureId);
-		return Response.ok().entity(tasks).build();
-	}
+    public TaskService getTaskService() {
+        return taskService;
+    }
+
+    public void setTaskService(TaskService taskService) {
+        this.taskService = taskService;
+    }
+    
+    
 }
-

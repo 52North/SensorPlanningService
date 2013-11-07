@@ -29,37 +29,28 @@ import java.util.List;
 
 import org.n52.sps.store.SensorTaskRepository;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
 public class TaskServiceImpl implements TaskService {
-	
-	private static final Logger LOGGER = LoggerFactory.getLogger(TaskServiceImpl.class);
-    
-	private SensorTaskRepository sensorTaskRepository;
-	
-	
-	public SensorTaskRepository getSensorTaskRepository() {
-		return sensorTaskRepository;
-	}
-	public void setSensorTaskRepository(SensorTaskRepository sensorTaskRepository) {
-		this.sensorTaskRepository = sensorTaskRepository;
-	}
-	
 
-	private List<String> iterableToArray(Iterable<String> iterableString){
-		ArrayList<String> array = new ArrayList<String>();
-   		for (String iter : iterableString ) {
-   			array.add(iter);
-   		 }
-   		return array;
-	}
-	
-	 public List<String> getTaskIds(String procedure){
-	    	Iterable<String> iterableSensorTasks = sensorTaskRepository.getSensorTaskIds(procedure);
-	   	    return iterableToArray(iterableSensorTasks);
-	 }
+    private SensorTaskRepository sensorTaskRepository;
+
+    public SensorTaskRepository getSensorTaskRepository() {
+        return sensorTaskRepository;
+    }
+
+    public void setSensorTaskRepository(SensorTaskRepository sensorTaskRepository) {
+        this.sensorTaskRepository = sensorTaskRepository;
+    }
+
+    private List<String> iterableToArray(Iterable<String> iterableString) {
+        ArrayList<String> array = new ArrayList<String>();
+        for (String iter : iterableString) {
+            array.add(iter);
+        }
+        return array;
+    }
+
+    public List<String> getTaskIds(String procedure) {
+        Iterable<String> iterableSensorTasks = sensorTaskRepository.getSensorTaskIds(procedure);
+        return iterableToArray(iterableSensorTasks);
+    }
 }
-
