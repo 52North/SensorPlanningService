@@ -29,6 +29,21 @@
 		<url-pattern>/sps/*</url-pattern>
 	</servlet-mapping>
 	
+	<!-- define WEB MVC communication servlet for plain old xml -->
+    <servlet>
+        <servlet-name>api</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/classes/binding-api.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>api</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+	
 	<!-- define WEB MVC communication servlet for administration interface -->
 	<servlet>
 		<servlet-name>admin</servlet-name>

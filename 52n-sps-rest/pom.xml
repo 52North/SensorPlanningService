@@ -5,39 +5,15 @@
 		<version>2.0.2-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>52n-sps-api</artifactId>
-	<name>52North SPS API</name>
+	<artifactId>52n-sps-rest</artifactId>
+	<name>ITG contribution to 52North SPS REST API</name>
 	<description>SPS API module.</description>
 	<packaging>jar</packaging>
 	<dependencies>
 		<!-- ### MODULE DEPENDENCIES ### -->
 		<dependency>
 			<groupId>org.n52.sensorweb</groupId>
-			<artifactId>52n-xml-sps-v20</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.n52.sensorweb</groupId>
-			<artifactId>52n-sps-api-xml</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.n52.sensorweb</groupId>
-			<artifactId>52n-oxf-ows-v110</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.n52.sensorweb</groupId>
-			<artifactId>52n-oxf-swes-v20</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.n52.sensorweb</groupId>
-			<artifactId>52n-oxf-xmlbeans</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
+			<artifactId>52n-sps-api</artifactId>
 		</dependency>
 	</dependencies>
 	<build>
