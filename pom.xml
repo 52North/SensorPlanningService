@@ -44,6 +44,7 @@
         
         <org.springframework.version>3.2.0.RELEASE</org.springframework.version>
         <oxf.common.xml.version>1.1.4</oxf.common.xml.version>
+        <aspectj.version>1.6.12</aspectj.version>
         <jackson.version>2.2.2</jackson.version>
         <oxf.version>1.12</oxf.version>
     </properties>
@@ -217,15 +218,15 @@
                 <version>${jackson.version}</version>
             </dependency>
 			<dependency>
-				<groupId>aspectj</groupId>
+				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjtools</artifactId>
-				<version>1.5.3</version>
+				<version>${aspectj.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-				<groupId>aspectj</groupId>
+				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjweaver</artifactId>
-				<version>1.6.12</version>
+				<version>${aspectj.version}</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
