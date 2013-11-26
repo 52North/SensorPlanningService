@@ -378,31 +378,6 @@
 				</plugin>
 
 				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>license-maven-plugin</artifactId>
-					<version>1.5</version>
-					<configuration>
-						<useMissingFile>true</useMissingFile>
-						<licensesConfigFile>${project.basedir}/src/license/licenses.xml</licensesConfigFile>
-						<excludedGroups>
-							org.n52.sensorweb
-						</excludedGroups>
-						<excludedScopes>
-							provided
-						</excludedScopes>
-					</configuration>
-					<executions>
-						<execution>
-							<id>download-licenses</id>
-							<goals>
-								<goal>download-licenses</goal>
-								<goal>aggregate-add-third-party</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-
-				<plugin>
 					<artifactId>maven-release-plugin</artifactId>
 					<configuration>
 						<connectionUrl>
@@ -526,6 +501,36 @@
 			</activation>
 			<!-- <modules> <module>52n-sps-integration-test</module> </modules> -->
 		</profile>
+		
+		
+        <profile>
+            <id>create-license-list</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <version>1.5</version>
+                        <configuration>
+                            <useMissingFile>true</useMissingFile>
+                            <licensesConfigFile>${project.basedir}/src/license/licenses.xml</licensesConfigFile>
+                            <excludedGroups>
+                                org.n52.sensorweb
+                            </excludedGroups>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>download-licenses</id>
+                                <goals>
+                                    <goal>download-licenses</goal>
+                                    <goal>aggregate-add-third-party</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 	</profiles>
 
 </project>
