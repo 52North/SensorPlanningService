@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<display-name>${project.artifactId} webapp (build: ${timestamp})</display-name>
+	<display-name>${project.artifactId} webapp (build: ${project.version})</display-name>
 
 	<!-- listen for spring related configuration files -->
 	<listener>
