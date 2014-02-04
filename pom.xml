@@ -50,9 +50,9 @@
 	</properties>
 
 	<scm>
-		<connection>scm:svn:https://svn.52north.org/svn/swe/main/SPS/Services/trunk</connection>
-		<developerConnection>scm:svn:https://svn.52north.org/svn/swe/main/SPS/Services/trunk</developerConnection>
-		<url>http://svn.52north.org/cgi-bin/viewvc.cgi/maven-root-project/trunk/?root=52n/52n-sps</url>
+		<connection>scm:git:git://github.com/52North/SensorPlanningService.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/52North/SensorPlanningService.git</developerConnection>
+        <url>https://github.com/52North/SensorPlanningService</url>
 	</scm>
 
 	<dependencyManagement>
