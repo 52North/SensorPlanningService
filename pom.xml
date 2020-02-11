@@ -480,12 +480,12 @@
 		<repository>
 			<id>n52-releases</id>
 			<name>52n Releases</name>
-			<url>http://52north.org/maven/repo/releases/</url>
+			<url>https://52north.org/maven/repo/releases/</url>
 		</repository>
 		<repository>
 			<id>n52-snapshots</id>
 			<name>52n Snapshots</name>
-			<url>http://52north.org/maven/repo/snapshots/</url>
+			<url>https://52north.org/maven/repo/snapshots/</url>
 		</repository>
 		<!-- <repository> <id>jboss</id> <url>https://repository.jboss.org/nexus/content/repositories/releases</url> 
 			<releases> <enabled>true</enabled> </releases> <snapshots> <enabled>false</enabled> 
@@ -496,7 +496,7 @@
 		<pluginRepository>
 			<id>apache-snapshots</id>
 			<name>Apache Snapshots</name>
-			<url>http://people.apache.org/repo/m2-snapshot-repository</url>
+			<url>https://people.apache.org/repo/m2-snapshot-repository</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
